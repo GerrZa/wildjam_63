@@ -11,17 +11,21 @@ config_version=5
 [application]
 
 config/name="wildjam_cat"
-run/main_scene="res://scr/ptt1/world.tscn"
+run/main_scene="res://scr/level/world.tscn"
 config/features=PackedStringArray("4.1", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+Singleton="*res://scr/tool/glob.gd"
+
 [display]
 
-window/size/viewport_width=320
-window/size/viewport_height=320
-window/size/window_width_override=960
-window/size/window_height_override=960
-window/stretch/mode="canvas_items"
+window/size/viewport_width=270
+window/size/viewport_height=250
+window/size/window_width_override=1920
+window/size/window_height_override=1080
+window/stretch/mode="viewport"
 
 [input]
 
@@ -48,4 +52,5 @@ down={
 
 [rendering]
 
+textures/canvas_textures/default_texture_filter=0
 environment/defaults/default_clear_color=Color(0.129412, 0.129412, 0.129412, 1)

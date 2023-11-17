@@ -1,0 +1,113 @@
+[gd_scene load_steps=16 format=3 uid="uid://db4yqimj4vhb2"]
+
+[ext_resource type="Texture2D" uid="uid://pf1f8parbiaa" path="res://asset/level/colli.png" id="1_1osme"]
+[ext_resource type="Script" path="res://scr/level/world.gd" id="1_3b27y"]
+[ext_resource type="Script" path="res://scr/obj/spawner.gd" id="1_6tjw1"]
+[ext_resource type="PackedScene" uid="uid://cbu882oy4byax" path="res://scr/actor/cat/cat.tscn" id="2_v7bsi"]
+[ext_resource type="Texture2D" uid="uid://hhwd8r1r2yp" path="res://asset/level/centerwall.png" id="2_yx1nd"]
+[ext_resource type="Texture2D" uid="uid://dmechudlh16mf" path="res://asset/ui/hpbar.png" id="3_c4v6c"]
+[ext_resource type="Script" path="res://scr/level/hpbar.gd" id="4_rsk3j"]
+[ext_resource type="FontFile" uid="uid://b8m7bdgf068wl" path="res://asset/ui/Mystery Font.ttf" id="5_fyjaa"]
+[ext_resource type="Script" path="res://scr/ui/timer.gd" id="8_xnhc2"]
+[ext_resource type="Script" path="res://scr/tool/cam_fol.gd" id="10_omqhd"]
+[ext_resource type="Script" path="res://scr/level/horizonman_spawner.gd" id="11_ew0m1"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7caa0"]
+size = Vector2(467, 82.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cjlj7"]
+size = Vector2(467, 83.125)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7p8by"]
+size = Vector2(84.75, 514.875)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m8wl8"]
+size = Vector2(115, 114)
+
+[node name="world" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_3b27y")
+
+[node name="wall" type="StaticBody2D" parent="."]
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wall"]
+position = Vector2(223, 39.625)
+shape = SubResource("RectangleShape2D_7caa0")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="wall"]
+position = Vector2(223.5, 425.563)
+shape = SubResource("RectangleShape2D_cjlj7")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="wall"]
+position = Vector2(8.625, 202.563)
+shape = SubResource("RectangleShape2D_7p8by")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="wall"]
+position = Vector2(422, 203)
+shape = SubResource("RectangleShape2D_7p8by")
+
+[node name="wall" type="Sprite2D" parent="wall"]
+texture = ExtResource("1_1osme")
+centered = false
+
+[node name="centerwall" type="StaticBody2D" parent="."]
+position = Vector2(215, 232)
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="centerwall"]
+position = Vector2(0.5, 0)
+shape = SubResource("RectangleShape2D_m8wl8")
+
+[node name="cenWall" type="Sprite2D" parent="centerwall"]
+position = Vector2(-57, -98)
+texture = ExtResource("2_yx1nd")
+centered = false
+
+[node name="spawner" type="Node2D" parent="."]
+script = ExtResource("1_6tjw1")
+
+[node name="horizonman_spawner" type="Node2D" parent="."]
+script = ExtResource("11_ew0m1")
+
+[node name="cat" parent="." instance=ExtResource("2_v7bsi")]
+position = Vector2(165, 155)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="hpbar" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(135, 233)
+texture = ExtResource("3_c4v6c")
+hframes = 10
+script = ExtResource("4_rsk3j")
+
+[node name="timer" type="Label" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+size_flags_horizontal = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_fonts/font = ExtResource("5_fyjaa")
+theme_override_font_sizes/font_size = 8
+text = "XX:XX"
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("8_xnhc2")
+
+[node name="cam_fol" type="Marker2D" parent="."]
+position = Vector2(165, 155)
+script = ExtResource("10_omqhd")
+target = NodePath("../cat")
+
+[node name="Camera2D" type="Camera2D" parent="cam_fol"]
+limit_left = 0
+limit_top = 0
+limit_right = 431
+limit_bottom = 444
+position_smoothing_enabled = true
+editor_draw_limits = true
